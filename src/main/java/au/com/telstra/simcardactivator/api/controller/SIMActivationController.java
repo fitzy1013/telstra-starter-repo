@@ -1,6 +1,7 @@
 package au.com.telstra.simcardactivator.api.controller;
 import au.com.telstra.simcardactivator.api.model.SIMActivationRequest;
-import au.com.telstra.simcardactivator.service.SIMActivationService;
+import au.com.telstra.simcardactivator.api.service.SIMActivationService;
+import au.com.telstra.simcardactivator.api.service.SIMActivationRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,16 @@ public class SIMActivationController {
             }
         } catch (HttpServerErrorException e) {
             return ResponseEntity.status(e.getRawStatusCode()).body(e.getResponseBodyAsString());
+        }
+    }
+
+    @GetMapping("/record/{id}")
+    public ResponseEntity<SIMActivationRecord> getActivationRecord(@PathVariable Long id) {
+        SIMActivationRecord record = activationService.getActivationRecord(id);
+        if (record != null) {
+            return ResponseEntity.ok(record);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 }
