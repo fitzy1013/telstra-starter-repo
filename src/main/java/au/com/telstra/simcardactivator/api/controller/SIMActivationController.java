@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpServerErrorException;
 
+import java.util.List;
+
 @RestController
 public class SIMActivationController {
 
@@ -42,4 +44,15 @@ public class SIMActivationController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/record")
+    public ResponseEntity<List<SIMActivationRecord>> getActivationRecord() {
+        List<SIMActivationRecord> records = activationService.getAllActivationRecords();
+        if (!records.isEmpty()) {
+            return ResponseEntity.ok(records);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

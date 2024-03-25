@@ -8,6 +8,8 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @Service
 public class SIMActivationService {
 
@@ -42,5 +44,7 @@ public class SIMActivationService {
     public SIMActivationRecord getActivationRecord(Long id) {
         return repository.findById(id).orElse(null);
     }
+
+    public List<SIMActivationRecord> getAllActivationRecords() { return repository.findAll(); }
 }
 
