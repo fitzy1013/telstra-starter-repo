@@ -4,8 +4,6 @@ public class SIMActivationRequest {
     private String iccid;
     private String customerEmail;
 
-    public SIMActivationRequest() {}
-
     public SIMActivationRequest(String iccid) {
         this.iccid = iccid;
     }

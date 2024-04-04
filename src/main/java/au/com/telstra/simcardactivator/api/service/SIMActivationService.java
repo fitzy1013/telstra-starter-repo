@@ -38,7 +38,11 @@ public class SIMActivationService {
             repository.save(record);
         }
 
-        return responseEntity.getBody() != null && responseEntity.getBody().isSuccess();
+        if (responseEntity.getBody() != null) {
+            return responseEntity.getBody().isSuccess();
+        } else {
+            return false;
+        }
     }
 
     public SIMActivationRecord getActivationRecord(Long id) {
