@@ -33,16 +33,13 @@ public class SIMActivationService {
                 new SIMActivationRequest(request.getIccid()),
                 SIMActivationResponse.class);
 
-        if (responseEntity.hasBody()) {
-            SIMActivationRecord record = new SIMActivationRecord(request.getIccid(), request.getCustomerEmail(), responseEntity.getBody().isSuccess());
+        SIMActivationResponse responseBody = responseEntity.getBody();
+        if (responseEntity.hasBody() && responseBody != null) {
+            SIMActivationRecord record = new SIMActivationRecord(request.getIccid(), request.getCustomerEmail(), responseBody.isSuccess());
             repository.save(record);
         }
 
-        if (responseEntity.getBody() != null) {
-            return responseEntity.getBody().isSuccess();
-        } else {
-            return false;
-        }
+        return responseBody != null && responseBody.isSuccess();
     }
 
     public SIMActivationRecord getActivationRecord(Long id) {
